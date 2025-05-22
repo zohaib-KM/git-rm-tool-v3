@@ -1,0 +1,5 @@
+PyGithub==1.59.1
+click==8.1.7
+rich==13.7.0
+python-dotenv==1.0.0
+keyring==24.3.0 
