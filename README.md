@@ -10,26 +10,40 @@ A command-line tool to search for and remove users from your GitHub organization
 - Set and use default PAT for convenience
 - Remove users from organizations with confirmation
 - Bulk remove users from all organizations
-- Rich terminal output with colorful formatting
-- Optimized performance with parallel processing
-- Caching to reduce API calls
+- Rich terminal output with colorful formatting and progress bars
 
 ## Installation
 
-1. Clone this repository:
+1. Clone the repository:
 ```bash
 git clone <repository-url>
 cd git-rm-tool
 ```
 
-2. Install dependencies:
+2. Create and activate a virtual environment:
+```bash
+python3 -m venv myenv
+source myenv/bin/activate
+```
+
+3. Install requirements:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Make the script executable:
+4. Build the executable:
 ```bash
-chmod +x git_rm_user.py
+python build.py
+```
+
+5. Install system-wide (optional):
+```bash
+sudo cp dist/git-rm-user /usr/local/bin/
+```
+
+Or run it directly:
+```bash
+./dist/git-rm-user
 ```
 
 ## Usage
@@ -38,81 +52,56 @@ chmod +x git_rm_user.py
 
 1. Add a new GitHub token:
 ```bash
-# Add a token
-./git_rm_user.py add-token <token-name> <github-pat>
-
-# Add a token and set as default
-./git_rm_user.py add-token <token-name> <github-pat> --default
+git-rm-user add-token <token-name> <github-pat> --default
 ```
 
-2. Set an existing token as default:
+2. List stored tokens:
 ```bash
-./git_rm_user.py set-default <token-name>
-```
-
-3. List stored tokens:
-```bash
-./git_rm_user.py show-tokens
+git-rm-user show-tokens
 ```
 
 ### Searching and Removing Users
 
-1. Search for a user (uses default token if set):
+1. Search for a user:
 ```bash
-# Using default token
-./git_rm_user.py search <username>
-
-# Using specific token
-./git_rm_user.py search <username> --token-name <your-token-name>
-
-# With debug information
-./git_rm_user.py search <username> --debug
+git-rm-user search <username>
 ```
 
-2. Search and remove with confirmation:
+2. Search with debug information:
 ```bash
-./git_rm_user.py search <username> --delete
+git-rm-user search <username> --debug
 ```
 
-3. Remove user from all organizations without confirmation:
+3. Remove user with confirmation:
 ```bash
-./git_rm_user.py search <username> --deleteforcefull
+git-rm-user search <username> --delete
+```
+
+4. Remove user without confirmation:
+```bash
+git-rm-user search <username> --deleteforcefull
 ```
 
 ## Required GitHub Token Permissions
 
-Your GitHub Personal Access Token needs the following permissions:
+Your GitHub Personal Access Token needs:
 - `read:org`
 - `write:org`
 - `admin:org`
-- `repo` (for repository access)
+- `repo`
 
-## Security
+## Troubleshooting
 
-- GitHub tokens are stored securely using the system's keyring
-- No sensitive information is stored in plain text
-- Each operation that removes a user requires explicit confirmation unless using `--deleteforcefull`
-- Default token selection for convenience without compromising security
+1. Keyring issues:
+```bash
+sudo apt-get install python3-dbus python3-secretstorage libsecret-1-0 gnome-keyring
+```
 
-## Performance Optimizations
+2. Command not found:
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+```
 
-The tool includes several optimizations for better performance:
-- Parallel processing of organizations and repositories
-- Caching of organization member IDs
-- User ID-based comparisons instead of username matching
-- Efficient API call management
-- Early termination when user is found
+## License
 
-## Error Handling
-
-The tool includes comprehensive error handling for:
-- Invalid tokens
-- Network issues
-- Permission problems
-- Non-existent users
-- Organization access issues
-- Repository access problems
-
-## Contributing
-
-Feel free to open issues or submit pull requests for any improvements or bug fixes. 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
