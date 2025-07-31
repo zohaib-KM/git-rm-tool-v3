@@ -2,4 +2,5 @@ PyGithub==1.59.1
 click==8.1.7
 rich==13.7.0
 keyring==24.3.0
-pyinstaller==6.3.0 
+keyrings.alt==5.0.0  # 👈 required for headless environments
+pyinstaller==6.3.0
