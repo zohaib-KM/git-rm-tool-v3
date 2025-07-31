@@ -16,7 +16,7 @@ A command-line tool to search for and remove users from your GitHub organization
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/zohaib-KM/git-rm-tool-v3.git
 cd git-rm-tool
 ```
 
