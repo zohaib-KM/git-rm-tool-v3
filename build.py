@@ -23,7 +23,9 @@ cmd = [
     '--name=git-rm-user',
     '--onefile',
     '--clean',
-    '--hidden-import=keyring.backends.SecretService',
+    '--hidden-import=keyrings.alt.file',
+    '--hidden-import=keyrings.alt.keyring',
+    '--hidden-import=keyrings.alt',
     'git_rm_user.py'
 ]
 
